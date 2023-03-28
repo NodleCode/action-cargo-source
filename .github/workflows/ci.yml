@@ -1,0 +1,35 @@
+name: Build and Test Smart Contracts
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      RUST_BACKTRACE: full
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cargo test
+        working-directory: examples/hello
+        run: |
+           pwd
+           ls -la
+           find
+      - name: Build hello contract
+        uses: simonsso/cargo-contract@tryci
+        with:
+          cargo-cmd: build
+          working-directory: examples/hello
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: contracts
+          path: |
+             target/ink/**/*.contract

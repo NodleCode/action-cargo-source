@@ -9,7 +9,7 @@ RUN rustup component add rust-src --toolchain nightly-2023-03-01-x86_64-unknown-
 RUN rustup component add rust-src
 RUN cargo install cargo-dylint
 RUN cargo install dylint-link
-RUN cargo install cargo-contract --force --locked --version 1.5.1
+RUN cargo install cargo-contract --force --locked --version 2.0.0
 WORKDIR /github/workspace
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./versions.sh /usr/local/bin/versions.sh

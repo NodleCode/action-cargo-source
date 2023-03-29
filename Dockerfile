@@ -12,5 +12,7 @@ RUN cargo install dylint-link
 RUN cargo install cargo-contract --force --locked --version 1.5.1
 WORKDIR /github/workspace
 COPY ./entrypoint.sh /entrypoint.sh
+COPY ./versions.sh /usr/local/bin/versions.sh
 RUN chmod +x /entrypoint.sh
+RUN chmod +x /usr/local/bin/versions.sh
 ENTRYPOINT [ "/entrypoint.sh" ]

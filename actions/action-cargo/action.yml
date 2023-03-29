@@ -1,18 +1,17 @@
-# action.yml
-name: 'cargo contracts'
+name: 'action-cargo'
 description: 'Cargo command wrapper'
 inputs:
   cargo-cmd:  # id of input
     description: 'Cargo command'
     required: true
-    default: 'cargo test'
+    default: 'build'
   working-directory:
     description: 'default work dir'
     required: true
     default: '.'
 runs:
   using: 'docker'
-  image: 'docker://openactionrs/action-cargo:master'
+  image: '../../Dockerfile'
   args:
     - ${{inputs.working-directory}}
     - ${{inputs.cargo-cmd}}

@@ -1,5 +1,4 @@
 name: Build and Test Smart Contracts
-
 on:
   push:
     branches: [ "master" ]
@@ -16,20 +15,34 @@ jobs:
       RUST_BACKTRACE: full
     steps:
       - uses: actions/checkout@v3
-      - name: Cargo test
+      - name: Show filesystem
         working-directory: examples/hello
         run: |
            pwd
            ls -la
            find
       - name: Build hello contract
-        uses: simonsso/cargo-contract@tryci
+        uses: ./actions/action-cargo
         with:
-          cargo-cmd: build
+          cargo-cmd: cargo contract build
           working-directory: examples/hello
+      # - name: Test hello contract with cargo contract test
+      #   uses: ./actions/action-cargo
+      #   with:
+      #     cargo-cmd: cargo contract test
+      #     working-directory: examples/hello
+      # - name: Test hello contract with cargo test
+      #   uses: ./actions/action-cargo
+      #   with:
+      #     cargo-cmd: cargo test
+      #     working-directory: examples/hello
+      # - uses: ./actions/action-cargo
+      #   with:
+      #     cargo-cmd: versions.sh
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: contracts
           path: |
+             toolversions
              target/ink/**/*.contract
